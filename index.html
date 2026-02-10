@@ -288,5 +288,29 @@
         </div>
       </div>
     </div>
+
+    <div class="delete-modal-overlay" id="deleteModalOverlay">
+      <div class="delete-modal-content">
+        <div class="delete-modal-header">
+          <div class="delete-modal-icon">⚠️</div>
+          <h3 class="delete-modal-title">¿Eliminar movimiento?</h3>
+        </div>
+        <div class="delete-modal-body">
+          <p class="delete-modal-text">
+            Esta acción no se puede deshacer. El movimiento será eliminado
+            permanentemente.
+          </p>
+          <div class="delete-modal-movement-info" id="deleteMovementInfo"></div>
+        </div>
+        <div class="delete-modal-actions">
+          <button class="delete-modal-btn cancel" id="deleteCancelBtn">
+            Cancelar
+          </button>
+          <button class="delete-modal-btn confirm" id="deleteConfirmBtn">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

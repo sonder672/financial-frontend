@@ -154,34 +154,96 @@ export const deleteMovement = async (
   logout,
   updateTotalsCallback,
 ) => {
-  if (!confirm("¿Estás seguro de eliminar este movimiento?")) {
-    return;
-  }
+  // Find the movement to show info in modal
+  const movement = movements.find((m) => (m.Id || m.id) === movementId);
 
-  try {
-    showLoader();
+  if (!movement) return;
 
-    // Call API to delete movement
-    await httpDelete("DeleteMovement", { id: movementId }, true, logout);
+  // Show delete confirmation modal
+  const modal = document.getElementById("deleteModalOverlay");
+  const movementInfo = document.getElementById("deleteMovementInfo");
+  const confirmBtn = document.getElementById("deleteConfirmBtn");
+  const cancelBtn = document.getElementById("deleteCancelBtn");
 
-    // Remove from local array
-    removeMovement(movementId);
+  // Populate movement info
+  movementInfo.innerHTML = `
+    <div class="movement-info-row">
+    <span class="movement-info-label">Descripción:</span>
+    <span class="movement-info-value">
+      ${
+        (movement.Description || movement.description).length > 20
+          ? (movement.Description || movement.description).slice(0, 20) + "..."
+          : movement.Description || movement.description
+      }
+    </span>
+  </div>
+    <div class="movement-info-row">
+      <span class="movement-info-label">Monto:</span>
+      <span class="movement-info-value">${formatCurrency(movement.Amount || movement.amount)}</span>
+    </div>
+    <div class="movement-info-row">
+      <span class="movement-info-label">Fecha:</span>
+      <span class="movement-info-value">${formatDate(movement.Date || movement.date)}</span>
+    </div>
+  `;
 
-    // Re-render and update totals
-    renderMovements(movements);
-    await updateTotalsCallback();
+  // Show modal
+  modal.classList.add("active");
 
-    showToast("Movimiento eliminado exitosamente", "success");
-  } catch (exception) {
-    const message = JSON.parse(exception.message);
+  // Handle confirmation
+  const handleConfirm = async () => {
+    try {
+      showLoader();
+      modal.classList.remove("active");
 
-    showToast(
-      message.response || "No se pudo eliminar el movimiento.",
-      "error",
-    );
-  } finally {
-    hideLoader();
-  }
+      // Call API to delete movement
+      await httpDelete("DeleteMovement", { id: movementId }, true, logout);
+
+      // Remove from local array
+      removeMovement(movementId);
+
+      // Re-render and update totals
+      renderMovements(movements);
+      await updateTotalsCallback();
+
+      showToast("Movimiento eliminado exitosamente", "success");
+    } catch (exception) {
+      const message = JSON.parse(exception.message);
+
+      showToast(
+        message.response || "No se pudo eliminar el movimiento.",
+        "error",
+      );
+    } finally {
+      hideLoader();
+      cleanup();
+    }
+  };
+
+  // Handle cancel
+  const handleCancel = () => {
+    modal.classList.remove("active");
+    cleanup();
+  };
+
+  // Cleanup event listeners
+  const cleanup = () => {
+    confirmBtn.removeEventListener("click", handleConfirm);
+    cancelBtn.removeEventListener("click", handleCancel);
+    modal.removeEventListener("click", handleOverlayClick);
+  };
+
+  // Handle overlay click (close on background click)
+  const handleOverlayClick = (e) => {
+    if (e.target === modal) {
+      handleCancel();
+    }
+  };
+
+  // Add event listeners
+  confirmBtn.addEventListener("click", handleConfirm);
+  cancelBtn.addEventListener("click", handleCancel);
+  modal.addEventListener("click", handleOverlayClick);
 };
 
 // Make deleteMovement available globally for onclick handlers
