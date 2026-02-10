@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App Financiera</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script src="js/index.js" type="module" defer></script>
+  </head>
+  <body>
+    <!-- Loader -->
+    <div class="loader-overlay" id="loader">
+      <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Login Screen -->
+    <div class="login-container" id="loginContainer">
+      <div class="login-card">
+        <div class="login-header">
+          <h1 class="login-logo">Balance</h1>
+          <p class="login-subtitle">Tu app financiera personal</p>
+        </div>
+
+        <form class="login-form" id="loginForm">
+          <div class="login-form-group">
+            <label for="loginEmail" class="login-label"
+              >Correo electrónico</label
+            >
+            <input
+              type="text"
+              id="loginEmail"
+              class="login-input"
+              placeholder="tu@email.com"
+              required
+            />
+          </div>
+
+          <div class="login-form-group">
+            <label for="loginPassword" class="login-label">Contraseña</label>
+            <input
+              type="password"
+              id="loginPassword"
+              class="login-input"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+
+          <button type="submit" class="login-btn">Iniciar Sesión</button>
+
+          <div class="login-footer">
+            <a href="#" class="login-link">¿Olvidaste tu contraseña?</a>
+          </div>
+        </form>
+
+        <div class="login-divider">
+          <span>o</span>
+        </div>
+
+        <button class="login-btn-secondary" id="registerBtn">
+          Crear una cuenta
+        </button>
+      </div>
+    </div>
+
+    <!-- Main App (Hidden until login) -->
+    <div class="app-container" id="appContainer" style="display: none">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <div class="header-info">
+            <h1 class="logo">Balance</h1>
+            <p class="header-subtitle" id="headerSubtitle">Cargando...</p>
+          </div>
+          <div class="header-balance">
+            <span class="balance-label">Balance Total</span>
+            <span class="balance-amount">$0.00</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Monthly Summary Section -->
+      <section class="monthly-summary">
+        <h2 class="summary-title">Resumen Mensual</h2>
+
+        <div class="summary-filters">
+          <div class="filter-selector">
+            <label class="filter-label">Año</label>
+            <select class="filter-select" id="yearSelector"></select>
+          </div>
+          <div class="filter-selector">
+            <label class="filter-label">Mes</label>
+            <select class="filter-select" id="monthSelector"></select>
+          </div>
+        </div>
+
+        <div class="summary-cards">
+          <div class="summary-card">
+            <div class="summary-icon">💰</div>
+            <div class="summary-info">
+              <span class="summary-label">Ingresos</span>
+              <span class="summary-value income" id="monthlyIncome">$0.00</span>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <div class="summary-icon">💸</div>
+            <div class="summary-info">
+              <span class="summary-label">Gastos</span>
+              <span class="summary-value expense" id="monthlyExpense"
+                >$0.00</span
+              >
+            </div>
+          </div>
+
+          <div class="summary-card highlight">
+            <div class="summary-icon">📊</div>
+            <div class="summary-info">
+              <span class="summary-label">Balance</span>
+              <span class="summary-value balance" id="monthlyBalance"
+                >$0.00</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filter Controls -->
+      <section class="filters">
+        <div class="filter-group">
+          <button class="filter-btn active" data-filter="all">Todos</button>
+          <button class="filter-btn" data-filter="income">Ingresos</button>
+          <button class="filter-btn" data-filter="expense">Gastos</button>
+        </div>
+
+        <div class="filter-controls">
+          <div class="date-filter-container">
+            <input
+              type="date"
+              id="dateFilter"
+              class="date-filter-input"
+              placeholder="Filtrar por fecha"
+            />
+            <button
+              class="clear-date-btn"
+              id="clearDateFilter"
+              title="Limpiar filtro"
+              style="display: none"
+            >
+              ×
+            </button>
+          </div>
+          <button class="sort-btn" id="sortBtn" title="Ordenar por fecha">
+            <span class="sort-icon">↓</span> Más recientes
+          </button>
+        </div>
+      </section>
+
+      <!-- Transactions List -->
+      <section class="transactions">
+        <h2 class="section-title">Movimientos</h2>
+        <div class="transaction-list">
+          <!-- Movements will be loaded dynamically -->
+        </div>
+      </section>
+
+      <!-- Add Transaction Forms -->
+      <section class="add-section">
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="income-form">
+            + Ingreso
+          </button>
+          <button class="tab-btn" data-tab="expense-form">+ Gasto</button>
+        </div>
+
+        <!-- Income Form -->
+        <form class="transaction-form active" id="income-form">
+          <h3 class="form-title">Agregar Ingreso</h3>
+
+          <div class="form-group">
+            <label for="income-type">Tipo</label>
+            <select id="income-type" class="form-input" required>
+              <option value="salary">Salario Mensual</option>
+              <option value="occasional">Ingreso Ocasional</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="income-description">Descripción</label>
+            <input
+              type="text"
+              id="income-description"
+              class="form-input"
+              placeholder="Ej: Salario enero"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="income-amount">Monto</label>
+            <input
+              type="text"
+              id="income-amount"
+              class="form-input"
+              placeholder="0"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="income-date">Fecha</label>
+            <input type="date" id="income-date" class="form-input" required />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Agregar Ingreso</button>
+        </form>
+
+        <!-- Expense Form -->
+        <form class="transaction-form" id="expense-form">
+          <h3 class="form-title">Agregar Gasto</h3>
+
+          <div class="form-group">
+            <label for="expense-description">Descripción</label>
+            <input
+              type="text"
+              id="expense-description"
+              class="form-input"
+              placeholder="Ej: Supermercado"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="expense-amount">Monto</label>
+            <input
+              type="text"
+              id="expense-amount"
+              class="form-input"
+              placeholder="0"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="expense-date">Fecha</label>
+            <input type="date" id="expense-date" class="form-input" required />
+          </div>
+
+          <div class="form-group">
+            <label for="expense-category">Categoría</label>
+            <select id="expense-category" class="form-input">
+              <option value="food">Comida</option>
+              <option value="transport">Transporte</option>
+              <option value="entertainment">Entretenimiento</option>
+              <option value="services">Servicios</option>
+              <option value="other">Otro</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Agregar Gasto</button>
+        </form>
+      </section>
+
+      <!-- Clearfix for float layout -->
+      <div style="clear: both"></div>
+
+      <!-- Floating Action Buttons (Mobile only) -->
+      <div class="floating-buttons">
+        <button class="fab income" id="fabIncome" aria-label="Agregar ingreso">
+          +
+        </button>
+        <button class="fab expense" id="fabExpense" aria-label="Agregar gasto">
+          −
+        </button>
+      </div>
+
+      <!-- Modal for mobile forms -->
+      <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content" id="modalContent">
+          <div class="modal-header">
+            <h3 class="modal-title" id="modalTitle">Agregar Movimiento</h3>
+            <button class="modal-close" id="modalClose">×</button>
+          </div>
+          <div class="modal-body" id="modalBody">
+            <!-- Form will be inserted here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

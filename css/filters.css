@@ -1,0 +1,143 @@
+/* ==========================================
+   Filters
+   ========================================== */
+.filters {
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.filter-group {
+  display: flex;
+  gap: var(--spacing-xs);
+  background: var(--color-surface);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-btn {
+  flex: 1;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn.active {
+  background: var(--color-text-primary);
+  color: var(--color-bg);
+}
+
+.filter-controls {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+}
+
+.date-filter-container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.date-filter-input {
+  flex: 1;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  padding-right: 2rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-text-primary);
+  transition: all 0.2s ease;
+}
+
+.date-filter-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.clear-date-btn {
+  position: absolute;
+  right: 0.25rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-text-tertiary);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.clear-date-btn:hover {
+  background: var(--color-expense);
+  transform: scale(1.1);
+}
+
+.sort-btn {
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.sort-btn:hover {
+  border-color: var(--color-accent);
+  background: var(--color-bg);
+}
+
+.sort-icon {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.filter-date {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.date-select,
+.date-input {
+  flex: 1;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-text-primary);
+  transition: border-color 0.2s ease;
+}
+
+.date-select:focus,
+.date-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}

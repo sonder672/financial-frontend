@@ -1,0 +1,43 @@
+/* ==========================================
+   CSS Variables & Root Styles
+   ========================================== */
+:root {
+  /* Sophisticated color palette - warm neutrals with emerald accents */
+  --color-bg: #fafaf8;
+  --color-surface: #ffffff;
+  --color-text-primary: #1a1a18;
+  --color-text-secondary: #6b6b68;
+  --color-text-tertiary: #a8a8a5;
+
+  --color-income: #047857;
+  --color-income-light: #ecfdf5;
+  --color-income-accent: #10b981;
+
+  --color-expense: #dc2626;
+  --color-expense-light: #fef2f2;
+  --color-expense-accent: #ef4444;
+
+  --color-accent: #854d0e;
+  --color-border: #e8e8e5;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  /* Typography */
+  --font-display: "Playfair Display", serif;
+  --font-body: "DM Sans", sans-serif;
+
+  /* Borders & Radius */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
+}

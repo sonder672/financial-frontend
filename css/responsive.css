@@ -1,0 +1,335 @@
+/* ==========================================
+   Responsive Design
+   ========================================== */
+
+/* ==========================================
+   Mobile (max-width: 480px)
+   ========================================== */
+@media (max-width: 480px) {
+  .login-card {
+    padding: var(--spacing-lg);
+  }
+
+  .login-logo {
+    font-size: 2.5rem;
+  }
+
+  .login-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .monthly-summary {
+    margin-top: -1.5rem;
+  }
+
+  .balance-amount {
+    font-size: 2rem;
+  }
+
+  .summary-value {
+    font-size: 1.5rem;
+  }
+}
+
+/* ==========================================
+   Tablet (481px - 768px)
+   ========================================== */
+@media (min-width: 481px) and (max-width: 768px) {
+  .app-container {
+    margin-top: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .header {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+}
+
+/* ==========================================
+   Mobile FABs & Modals Visibility
+   ========================================== */
+@media (max-width: 768px) {
+  .add-section {
+    display: none;
+  }
+
+  .floating-buttons {
+    display: flex;
+  }
+
+  .transaction-list {
+    padding-bottom: 100px; /* Space for floating buttons */
+  }
+}
+
+/* ==========================================
+   Desktop (min-width: 769px)
+   ========================================== */
+@media (min-width: 769px) {
+  /* Hide FABs and modals on desktop */
+  .floating-buttons,
+  .modal-overlay {
+    display: none !important;
+  }
+
+  .add-section {
+    display: block;
+  }
+
+  /* Login */
+  .login-card {
+    padding: 3rem;
+  }
+
+  .login-logo {
+    font-size: 3.5rem;
+  }
+
+  .login-subtitle {
+    font-size: 1.125rem;
+  }
+
+  /* Layout */
+  body {
+    background: var(--color-bg);
+  }
+
+  .app-container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: var(--color-bg);
+  }
+
+  /* Header */
+  .header {
+    border-radius: 0;
+    padding: var(--spacing-xl) 5%;
+    margin-bottom: 0;
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    margin-bottom: 0;
+    font-size: 2.5rem;
+  }
+
+  .header-balance {
+    text-align: right;
+  }
+
+  .balance-amount {
+    font-size: 3rem;
+  }
+
+  /* Monthly Summary */
+  .monthly-summary {
+    padding: var(--spacing-xl) 5%;
+    background: var(--color-surface);
+    margin-top: 0;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .summary-title {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .summary-filters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    max-width: 800px;
+  }
+
+  .filter-selector {
+    grid-column: span 2;
+  }
+
+  .filter-label {
+    font-size: 0.875rem;
+  }
+
+  .filter-select {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 1rem;
+  }
+
+  .summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+  }
+
+  .summary-card {
+    padding: var(--spacing-xl);
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  .summary-icon {
+    width: 64px;
+    height: 64px;
+    font-size: 2rem;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .summary-info {
+    align-items: flex-start;
+    flex: 1;
+  }
+
+  .summary-label {
+    font-size: 0.9375rem;
+  }
+
+  .summary-value {
+    font-size: 2.25rem;
+  }
+
+  /* Filters */
+  .filters {
+    padding: var(--spacing-lg) 5%;
+  }
+
+  .filter-group {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 6px;
+  }
+
+  .filter-btn {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 1rem;
+  }
+
+  /* Transactions & Forms */
+  .transactions,
+  .add-section {
+    padding: var(--spacing-xl) 5%;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .transaction-list {
+    gap: var(--spacing-md);
+  }
+
+  .transaction {
+    padding: var(--spacing-lg);
+  }
+
+  .transaction-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 1.75rem;
+  }
+
+  .transaction-name {
+    font-size: 1.125rem;
+  }
+
+  .transaction-amount {
+    font-size: 1.5rem;
+    margin-right: 40px;
+  }
+
+  .tabs {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .tab-btn {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 1rem;
+  }
+
+  .form-title {
+    font-size: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .form-input {
+    padding: var(--spacing-md);
+    font-size: 1rem;
+  }
+
+  .btn-primary {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 1rem;
+  }
+
+  /* Scrollbar styling */
+  .transaction-list::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .transaction-list::-webkit-scrollbar-track {
+    background: var(--color-bg);
+    border-radius: 4px;
+  }
+
+  .transaction-list::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+
+  .transaction-list::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-tertiary);
+  }
+}
+
+/* ==========================================
+   Wide Desktop (min-width: 1200px)
+   ========================================== */
+@media (min-width: 1200px) {
+  /* Side by side layout */
+  .transactions {
+    float: left;
+    width: 58%;
+    padding-right: 2%;
+    box-sizing: border-box;
+  }
+
+  .transaction-list {
+    max-height: calc(100vh - 250px);
+    overflow-y: auto;
+    padding-right: var(--spacing-sm);
+  }
+
+  .add-section {
+    float: right;
+    width: 35%;
+    padding-left: 2%;
+    box-sizing: border-box;
+    position: sticky;
+    top: var(--spacing-lg);
+    height: fit-content;
+  }
+}
+
+/* ==========================================
+   Extra Wide (min-width: 1024px)
+   ========================================== */
+@media (min-width: 1024px) {
+  .overview {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
