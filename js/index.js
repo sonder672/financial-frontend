@@ -446,44 +446,38 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedDate = e.target.value;
 
     if (!selectedDate) {
-      // If cleared, show all movements
       if (originalMovements.length > 0) {
         setMovements(originalMovements);
         renderMovements(getMovements());
         originalMovements = [];
       }
+
       clearDateFilter.style.display = "none";
       return;
     }
 
-    // Save original movements before filtering
     if (originalMovements.length === 0) {
       originalMovements = [...getMovements()];
     }
 
-    // Filter movements by exact date (ignoring time and timezone)
-    const movements = originalMovements;
     const [year, month, day] = selectedDate.split("-").map(Number);
 
-    const filtered = movements.filter((m) => {
-      const movementDate = new Date(m.Date || m.date);
+    const filtered = originalMovements.filter((m) => {
+      const rawDate = m.Date || m.date;
+      if (!rawDate) return false;
 
-      // Compare year, month, and day separately to avoid timezone issues
-      return (
-        movementDate.getFullYear() === year &&
-        movementDate.getMonth() === month - 1 && // JavaScript months are 0-indexed
-        movementDate.getDate() === day
-      );
+      // Support YYYY-MM-DD y YYYY-MM-DDTHH:mm:ssZ
+      const [datePart] = rawDate.split("T");
+      const [y, mth, d] = datePart.split("-").map(Number);
+
+      return y === year && mth === month && d === day;
     });
 
-    // Set filtered movements and render
     setMovements(filtered);
     renderMovements(filtered);
 
-    // Show clear button
     clearDateFilter.style.display = "flex";
 
-    // Show message if no results
     if (filtered.length === 0) {
       showToast("No hay movimientos en esta fecha", "info");
     } else {
@@ -499,6 +493,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderMovements(getMovements());
       originalMovements = [];
     }
+
     clearDateFilter.style.display = "none";
     showToast("Filtro de fecha eliminado", "info");
   });
@@ -656,7 +651,22 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       addMovement(newMovement);
-      renderMovements(getMovements());
+
+      if (dateFilter?.value && originalMovements.length > 0) {
+        originalMovements.push(newMovement);
+        const [year, month, day] = dateFilter.value.split("-").map(Number);
+
+        const [datePart] = newMovement.date.split("T");
+        const [y, mth, d] = datePart.split("-").map(Number);
+
+        const matchesFilter = y === year && mth === month && d === day;
+
+        if (matchesFilter) {
+          renderMovements(getMovements());
+        }
+      } else {
+        renderMovements(getMovements());
+      }
 
       await updateTotalsFromAPI(logout);
 

@@ -1,5 +1,5 @@
 const BACKEND_URL =
-  "https://santiago-financial-project-a9d6eecgfyfdhbce.canadacentral-01.azurewebsites.net/api";
+  "https://finansantiagoapp-backend-d8g7ekhmbhf3hfg5.mexicocentral-01.azurewebsites.net/api";
 
 const DEFAULT_ERROR_RESPONSE = JSON.stringify({
   response: "Ocurrió un error",

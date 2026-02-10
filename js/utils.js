@@ -23,9 +23,9 @@ export const formatCurrency = (value) =>
 export const formatNumberInput = (value) => {
   // Remove all non-digit characters
   const numericValue = value.replace(/\D/g, "");
-  
+
   if (!numericValue) return "";
-  
+
   // Format with thousand separators
   return new Intl.NumberFormat("es-CO").format(parseInt(numericValue, 10));
 };
@@ -45,12 +45,28 @@ export const unformatNumber = (formattedValue) => {
  * @returns {string} Formatted date
  */
 export const formatDate = (dateString) => {
-  const date = new Date(dateString);
+  if (!dateString) return "";
+
+  // Support YYYY-MM-DD y YYYY-MM-DDTHH:mm:ssZ
+  const [datePart] = dateString.split("T");
+  const [year, month, day] = datePart.split("-").map(Number);
+
   const months = [
-    "Ene", "Feb", "Mar", "Abr", "May", "Jun",
-    "Jul", "Ago", "Sep", "Oct", "Nov", "Dic",
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
   ];
-  return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+
+  return `${day} ${months[month - 1]} ${year}`;
 };
 
 /**
@@ -98,15 +114,13 @@ export const getDateRestrictions = () => {
  * @returns {boolean} True if date is in current month
  */
 export const isCurrentMonth = (dateString) => {
-  const selectedDate = new Date(dateString);
-  const today = new Date();
-  const currentYear = today.getFullYear();
-  const currentMonth = today.getMonth();
+  if (!dateString) return false;
 
-  return (
-    selectedDate.getFullYear() === currentYear &&
-    selectedDate.getMonth() === currentMonth
-  );
+  // dateString esperado: YYYY-MM-DD
+  const [year, month] = dateString.split("-").map(Number);
+  const today = new Date();
+
+  return year === today.getFullYear() && month - 1 === today.getMonth();
 };
 
 /**
@@ -114,6 +128,16 @@ export const isCurrentMonth = (dateString) => {
  * @returns {string[]} Array of month names
  */
 export const getMonthNames = () => [
-  "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-  "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
 ];

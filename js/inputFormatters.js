@@ -61,5 +61,7 @@ export const initializeCurrencyInputs = () => {
  * @returns {string} Clean numeric value
  */
 export const getNumericValue = (input) => {
-  return input.getNumericValue ? input.getNumericValue() : unformatNumber(input.value);
+  return input.getNumericValue
+    ? input.getNumericValue()
+    : unformatNumber(input.value);
 };
